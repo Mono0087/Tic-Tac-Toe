@@ -1,0 +1,81 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: #faebd7;
+  font-family: "Roboto", sans-serif;
+  color: #2c2929;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+p {
+  margin: 0;
+}
+
+button,
+a {
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+}
+button:hover,
+a:hover {
+  opacity: 0.8;
+}
+
+h2 {
+  margin: 0;
+}
+
+.btn {
+  padding: 5px 10px;
+  background-color: #faebd7;
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  -webkit-box-shadow: 1px 0px 1px #494040, 0px 1px 1px #494040, 2px 1px 1px #494040, 1px 2px 1px #494040, 3px 2px 1px #494040, 2px 3px 1px #494040;
+          box-shadow: 1px 0px 1px #494040, 0px 1px 1px #494040, 2px 1px 1px #494040, 1px 2px 1px #494040, 3px 2px 1px #494040, 2px 3px 1px #494040;
+}
+.btn:active {
+  border: none;
+  -webkit-box-shadow: 1px 0px 1px #494040, 0px 1px 1px #494040, 2px 1px 1px #494040;
+          box-shadow: 1px 0px 1px #494040, 0px 1px 1px #494040, 2px 1px 1px #494040;
+  -webkit-transform: translate(1px, 1px);
+      -ms-transform: translate(1px, 1px);
+          transform: translate(1px, 1px);
+}
+.btn:hover {
+  opacity: 1;
+  color: #544e4e;
+}
+
+.container {
+  padding: 20px;
+  background-color: #b96060;
+  max-width: 70vw;
+  margin: 0 auto;
+  position: relative;
+  top: 50px;
+  min-height: 80vh;
+}
+.container h1 {
+  text-align: center;
+}/*# sourceMappingURL=main.css.map */

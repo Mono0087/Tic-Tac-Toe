@@ -1,0 +1,75 @@
+@import "config";
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: $bg-main;
+  font-family: "Roboto", sans-serif;
+  color: $main-color;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+p {
+  margin: 0;
+}
+button,
+a {
+  transition: all 0.1s;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+h2 {
+  margin: 0;
+}
+
+.btn {
+  padding: 5px 10px;
+  background-color: $bg-main;
+  transition: all 0.1s;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 0px 1px $border, 0px 1px 1px $border, 2px 1px 1px $border,
+    1px 2px 1px $border, 3px 2px 1px $border, 2px 3px 1px $border;
+  &:active {
+    border: none;
+    box-shadow: 1px 0px 1px $border, 0px 1px 1px $border, 2px 1px 1px $border;
+    transform: translate(1px, 1px);
+  }
+  &:hover {
+    opacity: 1;
+    color: lighten($color: $main-color, $amount: 15);
+  }
+}
+
+// CONTAINER ///////////////////////////////////////
+
+.container {
+  padding: 20px;
+  background-color: $main-theme;
+  max-width: 70vw;
+  margin: 0 auto;
+  position: relative;
+  top: 50px;
+  min-height: 80vh;
+  h1 {
+    text-align: center;
+  }
+}
