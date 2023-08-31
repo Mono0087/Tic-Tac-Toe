@@ -68,14 +68,67 @@ h2 {
 }
 
 .container {
-  padding: 20px;
+  padding: 40px;
   background-color: #b96060;
   max-width: 70vw;
   margin: 0 auto;
   position: relative;
   top: 50px;
-  min-height: 80vh;
 }
 .container h1 {
   text-align: center;
+}
+
+.game_module {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.game_module h1 {
+  margin: 0 0 15px 0;
+}
+
+.field_container {
+  border: 2px solid #494040;
+  width: min(400px, 80%);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 15px;
+}
+
+.field {
+  background-color: #faebd7;
+  border: 2px solid #494040;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+
+.marked_x,
+.marked_circle {
+  color: #2c2929;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 80%;
+}
+.marked_x:hover,
+.marked_circle:hover {
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+.marked_x {
+  background-image: url(../img/x.svg);
+  background-size: 100%;
+}
+
+.marked_circle {
+  background-image: url(../img/circle.svg);
 }/*# sourceMappingURL=main.css.map */

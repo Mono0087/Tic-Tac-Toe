@@ -62,14 +62,58 @@ h2 {
 // CONTAINER ///////////////////////////////////////
 
 .container {
-  padding: 20px;
+  padding: 40px;
   background-color: $main-theme;
   max-width: 70vw;
   margin: 0 auto;
   position: relative;
   top: 50px;
-  min-height: 80vh;
   h1 {
     text-align: center;
   }
+}
+
+// STYLES ///////////////////////////////////////////
+
+.game_module {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    margin: 0 0 15px 0;
+  }
+}
+
+.field_container {
+  border: 2px solid $border;
+  width: min(400px, 80%);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 15px;
+}
+
+.field {
+  background-color: $bg-main;
+  border: 2px solid $border;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+.marked_x,
+.marked_circle {
+  color: $main-color;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 80%;
+  &:hover {
+    opacity: 1;
+    cursor: not-allowed;
+  }
+}
+.marked_x {
+  background-image: url(../img/x.svg);
+  background-size: 100%;
+}
+.marked_circle {
+  background-image: url(../img/circle.svg);
 }
