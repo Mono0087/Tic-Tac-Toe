@@ -101,7 +101,7 @@ h2 {
 .marked_x,
 .marked_circle {
   color: $main-color;
-  background-color: #fff;
+  background-color: opacify($color: $bg-main, $amount: 0);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 80%;
