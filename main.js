@@ -1,40 +1,11 @@
 const gameBoard = function () {
     let board = [];
-    const players = [{ name: 'Player', mark: 'o' }, { name: 'Computer', mark: 'x' }];
+    const players = [{ name: 'Player1', mark: 'o', type: 'player' }, { name: 'Player2', mark: 'x', type: 'player' }];
     const gameState = {
         currentPlayer: players[0].name,
         currentMark: players[0].mark,
         isOver: false,
         turnCount: 0,
-        nextPlayerTurn: function () {
-            if (this.currentPlayer === players[0].name) {
-                this.currentPlayer = players[1].name;
-                this.currentMark = players[1].mark
-            } else {
-                this.currentPlayer = players[0].name;
-                this.currentMark = players[0].mark
-            }
-            this.turnCount++;
-        },
-        reset: function () {
-            this.currentPlayer = players[0].name;
-            this.currentMark = players[0].mark;
-            this.turnCount = 0;
-            this.isOver = false;
-        },
-        victoryCheck: function () {
-            let victoryVariations = [[board[0], board[1], board[2]], [board[3], board[4], board[5]], [board[6], board[7], board[8]], [board[0], board[3], board[6]], [board[1], board[4], board[7]], [board[2], board[5], board[8]], [board[0], board[4], board[8]], [board[2], board[4], board[6]]];
-
-            let result = '';
-            victoryVariations.forEach(variation => {
-                let varSet = [...new Set(variation).keys()];
-                if (!varSet.includes(undefined) && varSet.length === 1) {
-                    result = players.find(p => p.mark === varSet[0]).name;
-                }
-            })
-            if (result) _endGame(result);
-            if (!result && this.turnCount === 9) _endGame('Tie')
-        }
     };
 
     //Cache DOM
@@ -42,15 +13,18 @@ const gameBoard = function () {
     const boardEl = gameDOM.querySelector('.field_container');
     const restartBtn = gameDOM.querySelector('.restart');
     const resultSpan = gameDOM.querySelector('.result').children[0];
+    const playerSelect = gameDOM.querySelector('#player-select');
 
     _renderBoard();
 
     //Bind events
     boardEl.addEventListener('mouseup', _boardHandler);
     restartBtn.addEventListener('click', restart);
+    playerSelect.addEventListener('change', changeSecondPlayer.bind(null, playerSelect));
 
     //Private methods
     function _renderBoard() {
+        Array.from(boardEl.children).map(field => field.classList.remove('marked_x', 'marked_circle'));
         board.forEach((val, i) => {
             if (val === 'x') {
                 boardEl.children[i].classList.add('marked_x')
@@ -65,25 +39,71 @@ const gameBoard = function () {
             addMarkToBoard(index);
         }
     }
+    function _nextPlayerTurn() {
+        gameState.turnCount++;
+        if (gameState.currentPlayer === players[0].name) {
+            gameState.currentPlayer = players[1].name;
+            gameState.currentMark = players[1].mark;
+            if (players[1].type === 'AI') {
+                _getComputerChoice();
+            }
+        } else {
+            gameState.currentPlayer = players[0].name;
+            gameState.currentMark = players[0].mark;
+        }
+    }
+    function _victoryCheck() {
+        let victoryVariations = [[board[0], board[1], board[2]], [board[3], board[4], board[5]], [board[6], board[7], board[8]], [board[0], board[3], board[6]], [board[1], board[4], board[7]], [board[2], board[5], board[8]], [board[0], board[4], board[8]], [board[2], board[4], board[6]]];
+
+        let result = '';
+        victoryVariations.forEach(variation => {
+            let varSet = [...new Set(variation).keys()];
+            if (!varSet.includes(undefined) && varSet.length === 1) {
+                result = players.find(p => p.mark === varSet[0]).name;
+            }
+        })
+        if (result) _endGame(result);
+        if (!result && gameState.turnCount === 8) _endGame('Tie')
+    }
     function _endGame(result) {
         gameState.isOver = true;
         resultSpan.textContent = result;
     }
-
+    function _getComputerChoice() {
+        for (let i = 0; i < 1;) {
+            let index = Math.floor(Math.random() * 9);
+            if (!board[index]) {
+                addMarkToBoard(index)
+                ++i;
+            } else {
+                if (gameState.isOver) ++i;
+            }
+        }
+    }
     //Public methods
     function addMarkToBoard(i) {
         if (!board[i] && i <= 8 && i >= 0 && !gameState.isOver) {
             board[i] = gameState.currentMark;
             _renderBoard();
-            gameState.nextPlayerTurn();
-            gameState.victoryCheck();
+            _victoryCheck();
+            _nextPlayerTurn();
         };
     }
     function restart() {
-        Array.from(boardEl.children).map(field => field.classList.remove('marked_x', 'marked_circle'));
         board = [];
-        gameState.reset();
+        _renderBoard();
+        gameState.currentPlayer = players[0].name;
+        gameState.currentMark = players[0].mark;
+        gameState.turnCount = 0;
+        gameState.isOver = false;
         resultSpan.textContent = '';
     }
-    return { addMarkToBoard, restart };
+    function changeSecondPlayer(player) {
+        if (!player.value) {
+            player = player;
+        } else player = player.value;
+        restart();
+        players[1].type = player;
+    }
+    return { addMarkToBoard, restart, changeSecondPlayer };
 }();

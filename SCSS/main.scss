@@ -77,11 +77,13 @@ h2 {
 
 .game_module {
   display: flex;
+  gap: 15px;
   flex-direction: column;
   align-items: center;
   h1 {
-    margin: 0 0 15px 0;
+    margin: 0;
   }
+  font-size: 1.4rem;
 }
 
 .field_container {
@@ -89,7 +91,6 @@ h2 {
   width: min(400px, 80%);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 15px;
 }
 
 .field {
@@ -118,7 +119,9 @@ h2 {
   background-image: url(../img/circle.svg);
 }
 
-.result {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
+#player-select {  
+  border: 2px solid $border;
+  border-radius: 5px;
+  background-color: $bg-main;
+  margin-left: 5px;
 }

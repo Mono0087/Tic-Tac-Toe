@@ -83,6 +83,7 @@ h2 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 15px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -90,9 +91,10 @@ h2 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  font-size: 1.4rem;
 }
 .game_module h1 {
-  margin: 0 0 15px 0;
+  margin: 0;
 }
 
 .field_container {
@@ -100,7 +102,6 @@ h2 {
   width: min(400px, 80%);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  margin-bottom: 15px;
 }
 
 .field {
@@ -133,7 +134,9 @@ h2 {
   background-image: url(../img/circle.svg);
 }
 
-.result {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
+#player-select {
+  border: 2px solid #494040;
+  border-radius: 5px;
+  background-color: #faebd7;
+  margin-left: 5px;
 }/*# sourceMappingURL=main.css.map */
