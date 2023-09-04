@@ -55,15 +55,14 @@ const gameBoard = function () {
     function _victoryCheck() {
         let victoryVariations = [[board[0], board[1], board[2]], [board[3], board[4], board[5]], [board[6], board[7], board[8]], [board[0], board[3], board[6]], [board[1], board[4], board[7]], [board[2], board[5], board[8]], [board[0], board[4], board[8]], [board[2], board[4], board[6]]];
 
-        let result = '';
+        let result;
         victoryVariations.forEach(variation => {
             let varSet = [...new Set(variation).keys()];
             if (!varSet.includes(undefined) && varSet.length === 1) {
-                result = players.find(p => p.mark === varSet[0]).name;
+                result = true;
             }
         })
-        if (result) _endGame(result);
-        if (!result && gameState.turnCount === 8) _endGame('Tie')
+        return result;
     }
     function _endGame(result) {
         gameState.isOver = true;
@@ -73,7 +72,7 @@ const gameBoard = function () {
         for (let i = 0; i < 1;) {
             let index = Math.floor(Math.random() * 9);
             if (!board[index]) {
-                addMarkToBoard(index)
+                addMarkToBoard(index);
                 ++i;
             } else {
                 if (gameState.isOver) ++i;
@@ -85,7 +84,9 @@ const gameBoard = function () {
         if (!board[i] && i <= 8 && i >= 0 && !gameState.isOver) {
             board[i] = gameState.currentMark;
             _renderBoard();
-            _victoryCheck();
+            if (_victoryCheck()) {
+                _endGame(gameState.currentPlayer);  
+            } else if (!_victoryCheck() && gameState.turnCount === 8) _endGame('Tie');
             _nextPlayerTurn();
         };
     }
