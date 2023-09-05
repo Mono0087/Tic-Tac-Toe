@@ -1,5 +1,5 @@
 const gameBoard = function () {
-    let board = [];
+    let board = ['', '', '', '', '', '', '', '', '', ''];
     const players = [{ name: 'Player1', mark: 'o', type: 'player' }, { name: 'Player2', mark: 'x', type: 'player' }];
     const gameState = {
         currentPlayer: players[0].name,
@@ -27,9 +27,10 @@ const gameBoard = function () {
         Array.from(boardEl.children).map(field => field.classList.remove('marked_x', 'marked_circle'));
         board.forEach((val, i) => {
             if (val === 'x') {
-                boardEl.children[i].classList.add('marked_x')
+                boardEl.children[i].classList.add('marked_x');
             } else if (val === 'o') {
-                boardEl.children[i].classList.add('marked_circle')
+                boardEl.children[i].classList.add('marked_circle');
+            } else {
             }
         })
     }
@@ -58,7 +59,7 @@ const gameBoard = function () {
         let result;
         victoryVariations.forEach(variation => {
             let varSet = [...new Set(variation).keys()];
-            if (!varSet.includes(undefined) && varSet.length === 1) {
+            if (!varSet.includes('') && varSet.length === 1) {
                 result = true;
             }
         })
@@ -92,7 +93,7 @@ const gameBoard = function () {
         };
     }
     function restart() {
-        board = [];
+        board = ['', '', '', '', '', '', '', '', '', ''];
         _renderBoard();
         gameState.currentPlayer = players[0].name;
         gameState.currentMark = players[0].mark;
