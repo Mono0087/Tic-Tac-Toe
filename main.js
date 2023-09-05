@@ -45,15 +45,15 @@ const gameBoard = function () {
             gameState.currentPlayer = players[1].name;
             gameState.currentMark = players[1].mark;
             if (players[1].type === 'AI') {
-                _getComputerChoice();
+                _computerChoice();
             }
         } else {
             gameState.currentPlayer = players[0].name;
             gameState.currentMark = players[0].mark;
         }
     }
-    function _victoryCheck() {
-        let victoryVariations = [[board[0], board[1], board[2]], [board[3], board[4], board[5]], [board[6], board[7], board[8]], [board[0], board[3], board[6]], [board[1], board[4], board[7]], [board[2], board[5], board[8]], [board[0], board[4], board[8]], [board[2], board[4], board[6]]];
+    function _victoryCheck(arr) {
+        let victoryVariations = [[arr[0], arr[1], arr[2]], [arr[3], arr[4], arr[5]], [arr[6], arr[7], arr[8]], [arr[0], arr[3], arr[6]], [arr[1], arr[4], arr[7]], [arr[2], arr[5], arr[8]], [arr[0], arr[4], arr[8]], [arr[2], arr[4], arr[6]]];
 
         let result;
         victoryVariations.forEach(variation => {
@@ -68,7 +68,7 @@ const gameBoard = function () {
         gameState.isOver = true;
         resultSpan.textContent = result;
     }
-    function _getComputerChoice() {
+    function _computerChoice() {
         for (let i = 0; i < 1;) {
             let index = Math.floor(Math.random() * 9);
             if (!board[index]) {
@@ -84,9 +84,10 @@ const gameBoard = function () {
         if (!board[i] && i <= 8 && i >= 0 && !gameState.isOver) {
             board[i] = gameState.currentMark;
             _renderBoard();
-            if (_victoryCheck()) {
-                _endGame(gameState.currentPlayer);  
-            } else if (!_victoryCheck() && gameState.turnCount === 8) _endGame('Tie');
+            let isVictory = _victoryCheck(board);
+            if (isVictory) {
+                _endGame(gameState.currentPlayer);
+            } else if (!isVictory && gameState.turnCount === 8) _endGame('Tie');
             _nextPlayerTurn();
         };
     }
