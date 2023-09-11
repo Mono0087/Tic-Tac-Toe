@@ -73,42 +73,43 @@ const gameBoard = function () {
     }
     function _computerChoice(mark) {
         let oppositeMark;
-        if (mark === 'x') {
-            oppositeMark = 'o';
-        } else {
+        if (mark === 'o') {
             oppositeMark = 'x';
+        } else if (mark === 'x') {
+            oppositeMark = 'o';
         }
 
+        let choice = minimax(board, true).position;
+        addMarkToBoard(choice);
+
         function minimax(position, maximizingPlayer) {
-            let remainingFields = function () {
-                let n = 0;
-                position.forEach(field => {
-                    if (!field) {
-                        ++n;
-                    }
-                })
-                return n;
-            }
+            let currentPlayer = maximizingPlayer ? 'o' : 'x';
+
+            let remainingFields = position.reduce((acc, field) => {
+                return field === '' ? ++acc : acc;
+            }, 0)
+
             if (_victoryCheck(position)) {
-                if (!maximizingPlayer) {
-                    return { position: null, score: 1 * (remainingFields() + 1) };
+                if (currentPlayer === 'x') {
+                    return { position: null, score: 1 * (remainingFields + 1) };
                 } else {
-                    return { position: null, score: -1 * (remainingFields() + 1) };
+                    return { position: null, score: -1 * (remainingFields + 1) };
                 }
-            } else if (!position.includes('')) {
+            } else if (remainingFields === 0) {
                 return { position: null, score: 0 };
             }
+
             if (maximizingPlayer) {
                 let bestMove = { position: null, score: -Infinity };
                 for (let i = 0; i < board.length; ++i) {
                     if (!board[i]) {
-                        board[i] = oppositeMark;
+                        board[i] = mark;
                         let eval = minimax(board, false);
+                        board[i] = '';
                         if (eval.score > bestMove.score) {
                             bestMove.position = i;
                             bestMove.score = eval.score;
                         }
-                        board[i] = '';
                     }
                 }
                 return bestMove;
@@ -116,20 +117,18 @@ const gameBoard = function () {
                 let bestMove = { position: null, score: +Infinity };
                 for (let i = 0; i < board.length; ++i) {
                     if (!board[i]) {
-                        board[i] = mark;
+                        board[i] = oppositeMark;
                         let eval = minimax(board, true);
+                        board[i] = '';
                         if (eval.score < bestMove.score) {
                             bestMove.position = i;
                             bestMove.score = eval.score;
                         }
-                        board[i] = '';
                     }
                 }
                 return bestMove;
             }
         }
-        console.log(minimax(board,true))
-        addMarkToBoard(minimax(board, true).position)
     }
 
     //Public methods
